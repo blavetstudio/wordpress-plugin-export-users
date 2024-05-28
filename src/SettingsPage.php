@@ -174,6 +174,12 @@ class SettingsPage extends Tab {
 
 			/** Get selected columns. */
 			$columns = get_option( 'uewm_columns' );
+
+            /** Add custom columns */
+            $custom_columns = apply_filters('uewm_custom_columns', array());
+            $columns = array_merge($columns, $custom_columns);
+            $allowlist = array_merge($allowlist, $custom_columns);
+
 			$columns = $columns ? $columns : $allowlist; /** Empty = All. */
 
 			/** Filter columns. */

@@ -98,6 +98,17 @@ class Users {
 		foreach ( $meta_records as $record ) {
 			$user_rows[ $record->user_id ][ $record->meta_key ] = $record->meta_value;
 		}
+
+        /** Add custom info */
+        $custom_columns = apply_filters('uewm_custom_columns', array());
+        if( ! empty( $custom_columns ) ) {
+            foreach ( $user_records as $record ) {
+                foreach ($custom_columns as $key => $column_name) {
+                    $user_rows[ $record->ID ][ $column_name ] = apply_filters('uewm_custom_column_value_' . $column_name, '', $record->ID);
+                }
+            }
+        }
+
 		return $user_rows;
 	}
 
